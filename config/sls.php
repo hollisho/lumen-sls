@@ -1,0 +1,12 @@
+<?php
+return [
+    'access_key_id'     => env('ALI_LOGSTORE_ACCESS_KEY_ID'),
+    'access_key_secret' => env('ALI_LOGSTORE_ACCESS_KEY_SECRET'),
+    /**
+     * https://help.aliyun.com/document_detail/29008.html
+     */
+    'endpoint'          => env('ALI_LOGSTORE_ENDPOINT'),
+    'project'           => env('ALI_LOGSTORE_PROJECT_NAME'),
+    'store'             => env('ALI_LOGSTORE_PROJECT_STORE'),
+    'topic'             => null,
+];

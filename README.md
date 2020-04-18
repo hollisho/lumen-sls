@@ -1,2 +1,10 @@
-# lumen-sls
-Aliyun SLS Log For Lumen
+# Aliyun SLS Log For Lumen
+
+
+## Install
+
+Via Composer
+
+``` bash
+$ composer require hollisho/lumen-sls
+```
