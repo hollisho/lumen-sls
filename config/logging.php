@@ -35,14 +35,10 @@ return [
 
     'channels' => [
         'sls' => [
-            // 日志驱动模式：
             'driver' => 'daily',
-            // 日志存放路径
             'path' => storage_path('logs/lumen.log'),
             'tap' => [\hollisho\lumensls\Logging\SLSFormatter::class],
-            // 日志等级：
             'level' => 'debug',
-            // 日志分片周期，多少天一个文件
             'days' => 1,
         ],
 

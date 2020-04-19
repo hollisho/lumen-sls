@@ -18,6 +18,18 @@ $app->configure('sls');
 $app->register(hollisho\lumensls\LumenSLSServiceProvider::class);
 ```
 
+Add following service providers into your providers array in `config/logging.php`
+
+```php
+'sls' => [
+    'driver' => 'daily',
+    'path' => storage_path('logs/lumen.log'),
+    'tap' => [\hollisho\lumensls\Logging\SLSFormatter::class],
+    'level' => 'debug',
+    'days' => 1,
+],
+```
+
 Edit your `.env` file
 
 ```bash
