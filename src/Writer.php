@@ -2,13 +2,13 @@
 
 namespace hollisho\lumensls;
 
+use hollisho\lumensls\Logging\JsonFormatter;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Contracts\Logging\Log as LogContract;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
-use Psr\Log\LoggerInterface as PsrLoggerInterface;
+use Psr\Log\LoggerInterface;
 
-class Writer implements LogContract, PsrLoggerInterface
+class Writer implements LoggerInterface
 {
 
     /**
@@ -26,8 +26,12 @@ class Writer implements LogContract, PsrLoggerInterface
      */
     private $topic;
 
+    /**
+     * @var string
+     */
+    private $env;
 
-    public function __construct(SLSLog $logger, Dispatcher $dispatcher = null, $topic)
+    public function __construct(SLSLog $logger, Dispatcher $dispatcher = null, $topic, $env)
     {
         if (isset( $dispatcher )) {
             $this->dispatcher = $dispatcher;
@@ -35,6 +39,7 @@ class Writer implements LogContract, PsrLoggerInterface
 
         $this->logger = $logger;
         $this->topic  = $topic;
+        $this->env = $env;
     }
 
 
@@ -46,7 +51,7 @@ class Writer implements LogContract, PsrLoggerInterface
      *
      * @return void
      */
-    public function alert($message, array $context = [ ])
+    public function alert($message, array $context = [])
     {
         $this->writeLog(__FUNCTION__, $message, $context);
     }
@@ -60,7 +65,7 @@ class Writer implements LogContract, PsrLoggerInterface
      *
      * @return void
      */
-    public function critical($message, array $context = [ ])
+    public function critical($message, array $context = [])
     {
         $this->writeLog(__FUNCTION__, $message, $context);
     }
@@ -74,7 +79,7 @@ class Writer implements LogContract, PsrLoggerInterface
      *
      * @return void
      */
-    public function error($message, array $context = [ ])
+    public function error($message, array $context = [])
     {
         $this->writeLog(__FUNCTION__, $message, $context);
     }
@@ -88,7 +93,7 @@ class Writer implements LogContract, PsrLoggerInterface
      *
      * @return void
      */
-    public function warning($message, array $context = [ ])
+    public function warning($message, array $context = [])
     {
         $this->writeLog(__FUNCTION__, $message, $context);
     }
@@ -102,7 +107,7 @@ class Writer implements LogContract, PsrLoggerInterface
      *
      * @return void
      */
-    public function notice($message, array $context = [ ])
+    public function notice($message, array $context = [])
     {
         $this->writeLog(__FUNCTION__, $message, $context);
     }
@@ -116,7 +121,7 @@ class Writer implements LogContract, PsrLoggerInterface
      *
      * @return void
      */
-    public function info($message, array $context = [ ])
+    public function info($message, array $context = [])
     {
         $this->writeLog(__FUNCTION__, $message, $context);
     }
@@ -130,7 +135,7 @@ class Writer implements LogContract, PsrLoggerInterface
      *
      * @return void
      */
-    public function debug($message, array $context = [ ])
+    public function debug($message, array $context = [])
     {
         $this->writeLog(__FUNCTION__, $message, $context);
     }
@@ -145,7 +150,7 @@ class Writer implements LogContract, PsrLoggerInterface
      *
      * @return void
      */
-    public function log($level, $message, array $context = [ ])
+    public function log($level, $message, array $context = [])
     {
         $this->writeLog(__FUNCTION__, $message, $context);
     }
@@ -209,11 +214,12 @@ class Writer implements LogContract, PsrLoggerInterface
 
         $this->logger->putLogs([
             'level'   => $level,
+            'env' => $this->env,
             'message' => $message,
             'context' => json_encode($context),
+            'request' => json_encode(JsonFormatter::getRequest())
         ], $this->topic);
     }
-
 
     /**
      * Fires a log event.
@@ -224,7 +230,7 @@ class Writer implements LogContract, PsrLoggerInterface
      *
      * @return void
      */
-    protected function fireLogEvent($level, $message, array $context = [ ])
+    protected function fireLogEvent($level, $message, array $context = [])
     {
         // If the event dispatcher is set, we will pass along the parameters to the
         // log listeners. These are useful for building profilers or other tools

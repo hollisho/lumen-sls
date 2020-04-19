@@ -33,15 +33,5 @@
     "psr-4": {
       "hollisho\\lumensls\\": "src"
     }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "hollisho\\lumensls\\LumenSLSServiceProvider"
-      ],
-      "aliases": {
-        "lumensls": "hollisho\\lumensls\\Facade"
-      }
-    }
   }
 }
