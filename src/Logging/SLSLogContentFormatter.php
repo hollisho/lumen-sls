@@ -13,6 +13,7 @@ class SLSLogContentFormatter extends LineFormatter
         $channel = array_get($record, 'channel');
         $message = array_get($record, 'message', '');
         $context = array_get($record, 'context', []);
+        $extra = array_get($record, 'extra', []);
         $datetime = array_get($record, 'datetime');
         $datetime = $datetime->format('Y-m-d H:i:s');
         app('sls')->putLogs([
@@ -20,6 +21,7 @@ class SLSLogContentFormatter extends LineFormatter
             'env' => $channel,
             'message' => $message,
             'context' => json_encode($context),
+            'extra' => $extra,
             'datetime' => $datetime,
             'request' => json_encode(self::getRequest())
         ]);
