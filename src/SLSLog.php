@@ -32,10 +32,16 @@ class SLSLog
      */
     protected $logStore;
 
+    /**
+     * @var string
+     */
+    protected $topic;
 
-    public function __construct(Client $client)
+
+    public function __construct(Client $client, $topic = '')
     {
         $this->client = $client;
+        $this->topic = $topic;
     }
 
 
@@ -68,7 +74,7 @@ class SLSLog
     public function putLogs($data, $topic = null, $source = null, $time = null)
     {
         $logItem  = new LogItem($data, $time);
-        $request  = new PutLogsRequest($this->project, $this->logStore, $topic, $source, [ $logItem ]);
+        $request  = new PutLogsRequest($this->project, $this->logStore, $topic ? $topic : $this->topic, $source, [ $logItem ]);
         $response = $this->client->putLogs($request);
 
         return array_get($response->getAllHeaders(), '_info.http_code') === 200;

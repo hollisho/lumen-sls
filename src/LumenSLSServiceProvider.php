@@ -12,7 +12,7 @@ class LumenSLSServiceProvider extends ServiceProvider
     public function boot()
     {
         /* @var Application $app */
-        $app = $this->app;
+//        $app = $this->app;
 //        $app->configure('sls');
     }
 
@@ -31,11 +31,12 @@ class LumenSLSServiceProvider extends ServiceProvider
             $endpoint        = array_get($config, 'endpoint');
             $project         = array_get($config, 'project');
             $store           = array_get($config, 'log_store');
-            $env             = array_get($config, 'env');
+            $topic           = array_get($config, 'topic');
+//            $env             = array_get($config, 'env');
 
             $client = new Client($endpoint, $accessKeyId, $accessKeySecret);
 
-            $log = new SLSLog($client);
+            $log = new SLSLog($client, $topic);
             $log->setProject($project);
             $log->setLogStore($store);
 
