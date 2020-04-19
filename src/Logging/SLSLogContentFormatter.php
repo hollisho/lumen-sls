@@ -3,6 +3,7 @@
 namespace hollisho\lumensls\Logging;
 
 
+
 use Monolog\Formatter\LineFormatter;
 
 class SLSLogContentFormatter extends LineFormatter
@@ -21,11 +22,11 @@ class SLSLogContentFormatter extends LineFormatter
             'env' => $channel,
             'message' => $message,
             'context' => json_encode($context),
-            'extra' => $extra,
+            'extra' => json_encode($extra),
             'datetime' => $datetime,
             'request' => json_encode(self::getRequest())
         ]);
-        return $record;
+        return parent::format($record);
     }
 
     public static function getRequest() {
