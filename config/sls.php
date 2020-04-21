@@ -7,7 +7,7 @@ return [
      */
     'endpoint'          => env('ALI_LOGSTORE_ENDPOINT'),
     'project'           => env('ALI_LOGSTORE_PROJECT_NAME'),
-    'log_store'             => env('ALI_LOGSTORE_NAME'),
+    'log_store'             => env('ALI_LOGSTORE_NAME', 'lumen_sls_log'),
     'topic'             => env('APP_NAME'),
     'env'             => env('APP_ENV'),
 ];

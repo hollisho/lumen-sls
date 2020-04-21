@@ -24,7 +24,8 @@ class SLSLogContentFormatter extends LineFormatter
             'context' => json_encode($context),
             'extra' => json_encode($extra),
             'datetime' => $datetime,
-            'request' => json_encode(self::getRequest())
+            'request' => json_encode(self::getRequest()),
+            'uri' => isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : ''
         ]);
         return parent::format($record);
     }

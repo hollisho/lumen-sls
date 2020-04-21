@@ -3,11 +3,19 @@
 namespace hollisho\lumensls;
 
 use Aliyun\SLS\Client;
+use hollisho\lumensls\Console\PublishConfigCommand;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application;
 
 class LumenSLSServiceProvider extends ServiceProvider
 {
+
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = true;
 
     public function boot()
     {
@@ -24,6 +32,14 @@ class LumenSLSServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton('command.lumen-sls.publish-config', function () {
+            return new PublishConfigCommand();
+        });
+
+        $this->commands(
+            'command.lumen-sls.publish-config'
+        );
+
         $this->app->singleton('sls', function ($app) {
             $config = $app['config']['sls'];
             $accessKeyId     = array_get($config, 'access_key_id');
