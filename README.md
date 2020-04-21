@@ -43,7 +43,7 @@ ALI_LOGSTORE_NAME=test-store
 ```
 You should update `ALI_LOGSTORE_ENDPOINT` to `internal endpoint` in production mode
 
-Run `php artisan lumen-cli:publish-config` to publish configs (`config/sls.php`)
+Run `php artisan lumen-sls:publish-config` to publish configs (`config/sls.php`)
 
 Make configuration changes if needed
 
