@@ -10,8 +10,11 @@ class SLSFormatter
      */
     public function __invoke($logger)
     {
-        foreach ($logger->getHandlers() as $handler) {
-            $handler->setFormatter(new SLSLogContentFormatter());
-        }
+        /* @var $slsLog \hollisho\lumensls\SLSLog */
+        $slsLog = app('sls');
+        /* @var $logger \Monolog\Logger */
+        $handler = new SLSLogHandler($slsLog);
+        $handler->setFormatter(new SLSLogContentFormatter());
+        $logger->pushHandler($handler);
     }
 }

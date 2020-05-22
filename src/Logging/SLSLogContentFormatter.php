@@ -2,8 +2,6 @@
 
 namespace hollisho\lumensls\Logging;
 
-
-
 use Monolog\Formatter\LineFormatter;
 
 class SLSLogContentFormatter extends LineFormatter
@@ -17,26 +15,21 @@ class SLSLogContentFormatter extends LineFormatter
         $extra = array_get($record, 'extra', []);
         $datetime = array_get($record, 'datetime');
         $datetime = $datetime->format('Y-m-d H:i:s');
-        app('sls')->putLogs([
+        /* @var $request \Laravel\Lumen\Http\Request */
+        $request = app('request');
+        $uri = $request->getRequestUri();
+        $module = explode("?", $uri)[0];
+        $content = [
             'level' => $level,
             'env' => $channel,
             'message' => $message,
             'context' => json_encode($context),
             'extra' => json_encode($extra),
             'datetime' => $datetime,
-            'request' => json_encode(self::getRequest()),
-            'uri' => isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : ''
-        ]);
-        return parent::format($record);
-    }
-
-    public static function getRequest() {
-        return [
-            '_GET' => $_GET,
-            '_POST' => $_POST,
-            '_COOKIE' => $_COOKIE,
-            '_HEADER' => getallheaders(),
-            '_BODY' => @file_get_contents('php://input')
+            'request' => json_encode($request->toArray()),
+            'uri' => $request->getRequestUri()
         ];
+
+        return $content;
     }
 }

@@ -22,14 +22,4 @@ class JsonFormatter extends \Monolog\Formatter\JsonFormatter
 
         return $json;
     }
-
-    public static function getRequest() {
-        return [
-            '_GET' => $_GET,
-            '_POST' => $_POST,
-            '_COOKIE' => $_COOKIE,
-            '_HEADER' => getallheaders(),
-            '_BODY' => @file_get_contents('php://input')
-        ];
-    }
 }
