@@ -2,6 +2,8 @@
 
 namespace hollisho\lumensls\Logging;
 
+use Monolog\Handler\BufferHandler;
+
 class SLSFormatter
 {
     /**
@@ -15,6 +17,6 @@ class SLSFormatter
         /* @var $logger \Monolog\Logger */
         $handler = new SLSLogHandler($slsLog);
         $handler->setFormatter(new SLSLogContentFormatter());
-        $logger->pushHandler($handler);
+        $logger->pushHandler(new BufferHandler($handler, 1));
     }
 }

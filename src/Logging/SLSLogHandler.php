@@ -4,7 +4,6 @@ namespace hollisho\lumensls\Logging;
 
 
 use hollisho\lumensls\SLSLog;
-use Illuminate\Support\Arr;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 
@@ -78,9 +77,11 @@ class SLSLogHandler extends AbstractProcessingHandler
     /**
      * {@inheritdoc}
      */
-    protected function send($content)
+    protected function send(array $contents)
     {
-        $this->logger->putLogs($content);
+        if($contents) foreach ($contents as $content) {
+            $this->logger->putLogs($content);
+        }
     }
 
 }

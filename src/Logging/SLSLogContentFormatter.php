@@ -2,9 +2,10 @@
 
 namespace hollisho\lumensls\Logging;
 
-use Monolog\Formatter\LineFormatter;
 
-class SLSLogContentFormatter extends LineFormatter
+use Monolog\Formatter\NormalizerFormatter;
+
+class SLSLogContentFormatter extends NormalizerFormatter
 {
     public function format(array $record)
     {
@@ -17,8 +18,6 @@ class SLSLogContentFormatter extends LineFormatter
         $datetime = $datetime->format('Y-m-d H:i:s');
         /* @var $request \Laravel\Lumen\Http\Request */
         $request = app('request');
-        $uri = $request->getRequestUri();
-        $module = explode("?", $uri)[0];
         $content = [
             'level' => $level,
             'env' => $channel,
