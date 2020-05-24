@@ -3,19 +3,19 @@
 namespace hollisho\lumensls\Logging;
 
 
-use hollisho\lumensls\SLSLog;
+use hollisho\lumensls\SLSLogManager;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 
 class SLSLogHandler extends AbstractProcessingHandler
 {
-    /* @var $logger SLSLog */
+    /* @var $logger SLSLogManager */
     protected $logger;
 
     /**
      * {@inheritdoc}
      */
-    public function __construct(SLSLog $logger, int $level = Logger::DEBUG, bool $bubble = true)
+    public function __construct(SLSLogManager $logger, int $level = Logger::DEBUG, bool $bubble = true)
     {
         parent::__construct($level, $bubble);
         $this->logger = $logger;

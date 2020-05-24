@@ -52,7 +52,7 @@ class LumenSLSServiceProvider extends ServiceProvider
 
             $client = new Client($endpoint, $accessKeyId, $accessKeySecret);
 
-            $log = new SLSLog($client, $topic);
+            $log = new SLSLogManager($client, $topic);
             $log->setProject($project);
             $log->setLogStore($store);
 
@@ -61,6 +61,6 @@ class LumenSLSServiceProvider extends ServiceProvider
 
         $config = $this->app['config']['sls'];
 
-        $this->app->instance('sls.writer', new Writer(app('sls'), $this->app['events'], $config['topic'], $config['env']));
+        $this->app->instance('sls.writer', new SLSLogWriter(app('sls'), $this->app['events'], $config['topic'], $config['env']));
     }
 }

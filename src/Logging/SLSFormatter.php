@@ -17,7 +17,7 @@ class SLSFormatter
      */
     public function __invoke($logger, $bufferLimit = 0, $level = Logger::DEBUG, $bubble = true, $flushOnOverflow = false)
     {
-        /* @var $slsLog \hollisho\lumensls\SLSLog */
+        /* @var $slsLog \hollisho\lumensls\SLSLogManager */
         $slsLog = app('sls');
         /* @var $logger \Monolog\Logger */
         $handler = new SLSLogHandler($slsLog);

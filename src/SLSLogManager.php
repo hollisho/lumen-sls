@@ -14,7 +14,7 @@ use Aliyun\SLS\Responses\GetLogsResponse;
 use Aliyun\SLS\Responses\ListLogStoresResponse;
 use Aliyun\SLS\Responses\ListTopicsResponse;
 
-class SLSLog
+class SLSLogManager
 {
 
     /**

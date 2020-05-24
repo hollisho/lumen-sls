@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static mixed channel(string $channel = null)
  * @method static \Psr\Log\LoggerInterface stack(array $channels, string $channel = null)
  *
- * @see \hollisho\lumensls\Writer
+ * @see \hollisho\lumensls\SLSLogWriter
  */
 class Log extends Facade
 {

@@ -2,13 +2,12 @@
 
 namespace hollisho\lumensls;
 
-use hollisho\lumensls\Logging\JsonFormatter;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Psr\Log\LoggerInterface;
 
-class Writer implements LoggerInterface
+class SLSLogWriter implements LoggerInterface
 {
 
     /**
@@ -17,7 +16,7 @@ class Writer implements LoggerInterface
     protected $dispatcher;
 
     /**
-     * @var SLSLog
+     * @var SLSLogManager
      */
     private $logger;
 
@@ -31,7 +30,7 @@ class Writer implements LoggerInterface
      */
     private $env;
 
-    public function __construct(SLSLog $logger, Dispatcher $dispatcher = null, $topic, $env)
+    public function __construct(SLSLogManager $logger, Dispatcher $dispatcher = null, $topic, $env)
     {
         if (isset( $dispatcher )) {
             $this->dispatcher = $dispatcher;
@@ -211,13 +210,14 @@ class Writer implements LoggerInterface
     protected function writeLog($level, $message, $context)
     {
         $this->fireLogEvent($level, $message = $this->formatMessage($message), $context);
-
+        /* @var $request \Laravel\Lumen\Http\Request */
+        $request = app('request');
         $this->logger->putLogs([
             'level'   => $level,
             'env' => $this->env,
             'message' => $message,
             'context' => json_encode($context),
-            'request' => json_encode(JsonFormatter::getRequest())
+            'request' => json_encode($request->toArray())
         ], $this->topic);
     }
 
