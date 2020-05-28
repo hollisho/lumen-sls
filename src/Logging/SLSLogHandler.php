@@ -12,13 +12,15 @@ class SLSLogHandler extends AbstractProcessingHandler
     /* @var $logger SLSLogManager */
     protected $logger;
 
+    protected $logStore;
     /**
      * {@inheritdoc}
      */
-    public function __construct(SLSLogManager $logger, int $level = Logger::DEBUG, bool $bubble = true)
+    public function __construct(SLSLogManager $logger, $logStore = null, int $level = Logger::DEBUG, bool $bubble = true)
     {
         parent::__construct($level, $bubble);
         $this->logger = $logger;
+        $this->logStore = $logStore;
     }
 
     /**
@@ -80,7 +82,7 @@ class SLSLogHandler extends AbstractProcessingHandler
     protected function send(array $contents)
     {
         if($contents) foreach ($contents as $content) {
-            $this->logger->putLogs($content);
+            $this->logger->putLogs($content, $this->logStore);
         }
     }
 

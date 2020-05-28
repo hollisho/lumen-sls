@@ -20,7 +20,7 @@ class SLSFormatter
         /* @var $slsLog \hollisho\lumensls\SLSLogManager */
         $slsLog = app('sls');
         /* @var $logger \Monolog\Logger */
-        $handler = new SLSLogHandler($slsLog);
+        $handler = new SLSLogHandler($slsLog, config('sls.log_store'));
         $handler->setFormatter(new SLSLogContentFormatter());
         $logger->pushHandler(new BufferHandler($handler, $bufferLimit, $level, (bool) $bubble, (bool) $flushOnOverflow));
     }

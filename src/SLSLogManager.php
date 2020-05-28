@@ -67,14 +67,16 @@ class SLSLogManager
      *
      * @param array  $data
      *
+     * @param string $logStore
+     *
      * @param string $topic
      *
      * @return bool
      */
-    public function putLogs($data, $topic = null, $source = null, $time = null)
+    public function putLogs($data, $logStore = null, $topic = null, $source = null, $time = null)
     {
         $logItem  = new LogItem($data, $time);
-        $request  = new PutLogsRequest($this->project, $this->logStore, $topic ? $topic : $this->topic, $source, [ $logItem ]);
+        $request  = new PutLogsRequest($this->project, $logStore ? $logStore : $this->logStore, $topic ? $topic : $this->topic, $source, [ $logItem ]);
         $response = $this->client->putLogs($request);
 
         return array_get($response->getAllHeaders(), '_info.http_code') === 200;
