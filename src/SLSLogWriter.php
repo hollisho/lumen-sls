@@ -218,7 +218,7 @@ class SLSLogWriter implements LoggerInterface
             'message' => $message,
             'context' => json_encode($context),
             'request' => json_encode($request->toArray())
-        ], $this->topic);
+        ], '', $this->topic);
     }
 
     /**
