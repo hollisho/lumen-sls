@@ -25,7 +25,7 @@
     }
   ],
   "require": {
-    "illuminate/support": "~5.7",
+    "illuminate/support": "~5.7|~6.0",
     "php": "~7.0",
     "lokielse/aliyun-open-api-sls": "^1.0.0"
   },
