@@ -22,6 +22,6 @@ class SLSFormatter
         /* @var $logger \Monolog\Logger */
         $handler = new SLSLogHandler($slsLog, config('sls.log_store'));
         $handler->setFormatter(new SLSLogContentFormatter());
-        $logger->pushHandler(new BufferHandler($handler, $bufferLimit, $level, (bool) $bubble, (bool) $flushOnOverflow));
+        $logger->pushHandler(new BufferHandler($handler, (int) $bufferLimit, $level, (bool) $bubble, (bool) $flushOnOverflow));
     }
 }
