@@ -4,6 +4,7 @@ namespace hollisho\lumensls\Logging;
 
 
 use hollisho\lumensls\SLSLogManager;
+use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 
@@ -26,7 +27,7 @@ class SLSLogHandler extends AbstractProcessingHandler
     /**
      * {@inheritdoc}
      */
-    protected function getDefaultFormatter()
+    protected function getDefaultFormatter(): FormatterInterface
     {
         return new SLSLogContentFormatter();
     }
@@ -34,7 +35,7 @@ class SLSLogHandler extends AbstractProcessingHandler
     /**
      * {@inheritdoc}
      */
-    protected function write(array $record)
+    protected function write(array $record): void
     {
         $this->send($record['formatted']);
     }
@@ -42,7 +43,7 @@ class SLSLogHandler extends AbstractProcessingHandler
     /**
      * {@inheritdoc}
      */
-    public function handleBatch(array $records)
+    public function handleBatch(array $records): void
     {
         $messages = array();
 
@@ -65,7 +66,7 @@ class SLSLogHandler extends AbstractProcessingHandler
      * @param  array $record
      * @return array
      */
-    protected function processRecord(array $record)
+    protected function processRecord(array $record): array
     {
         if ($this->processors) {
             foreach ($this->processors as $processor) {
