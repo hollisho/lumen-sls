@@ -29,7 +29,8 @@
     "illuminate/contracts": "^6.0",
     "illuminate/support": "^6.0",
     "monolog/monolog": "^1.12|^2.0",
-    "lokielse/aliyun-open-api-sls": "^1.0.0"
+    "lokielse/aliyun-open-api-sls": "^1.0.0",
+    "laravel/helpers": "^1.2"
   },
   "autoload": {
     "psr-4": {
