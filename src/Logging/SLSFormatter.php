@@ -15,7 +15,7 @@ class SLSFormatter
      * @param bool $bubble
      * @param bool $flushOnOverflow
      */
-    public function __invoke($logger, $bufferLimit = 0, $level = Logger::DEBUG, $bubble = true, $flushOnOverflow = false)
+    public function __invoke($logger, $bufferLimit = 0, $level = Logger::DEBUG, $bubble = true, $flushOnOverflow = true)
     {
         /* @var $slsLog \hollisho\lumensls\SLSLogManager */
         $slsLog = app('sls');
